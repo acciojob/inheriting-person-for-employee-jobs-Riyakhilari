@@ -1,23 +1,18 @@
-function Person(name, age) {
-  this.name = name;
-  this.age = age;
-}
+describe('Example To-Do App', () => {
+  it('can greet and job greet', () => {
+    const person = new Person("Alice", 25);
+    const employee = new Employee("Bob", 30, "Manager");
 
-Person.prototype.greet = function() {
-  console.log(`Hello, my name is ${this.name}, I am ${this.age} years old`);
-};
+    // Testing the greet method for Person
+    const greetSpy = cy.spy(person, 'greet');
+    person.greet();
+    expect(greetSpy).to.have.been.calledOnce;
+    expect(greetSpy).to.have.returned('Hello, my name is Alice, I am 25 years old');
 
-function Employee(name, age, jobTitle) {
-  Person.call(this, name, age);
-  this.jobTitle = jobTitle;
-}
-
-Employee.prototype = Object.create(Person.prototype);
-Employee.prototype.constructor = Employee;
-
-Employee.prototype.jobGreet = function() {
-  console.log(`Hello, my name is ${this.name}, I am ${this.age} years old, and my job title is ${this.jobTitle}`);
-};
-
-window.Person = Person;
-window.Employee = Employee;
+    // Testing the jobGreet method for Employee
+    const jobGreetSpy = cy.spy(employee, 'jobGreet');
+    employee.jobGreet();
+    expect(jobGreetSpy).to.have.been.calledOnce;
+    expect(jobGreetSpy).to.have.returned('Hello, my name is Bob, I am 30 years old, and my job title is Manager');
+  });
+});
