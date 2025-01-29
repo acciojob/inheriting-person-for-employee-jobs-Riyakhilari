@@ -1,8 +1,14 @@
 describe('Example To-Do App', () => {
-  it('can greet and job greet', () => {
-    const person = new Person("Alice", 25);
-    const employee = new Employee("Bob", 30, "Manager");
+  let person;
+  let employee;
 
+  // beforeEach hook to set up the tests
+  beforeEach(() => {
+    person = new Person("Alice", 25);
+    employee = new Employee("Bob", 30, "Manager");
+  });
+
+  it('can greet and job greet', () => {
     // Testing the greet method for Person
     const greetSpy = cy.spy(person, 'greet');
     person.greet();
